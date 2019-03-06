@@ -34,8 +34,14 @@ describe DockingStation do
 
   it 'gives error if no bikes' do
     victoria_station = DockingStation.new
+    expect{ victoria_station.release_bike }.to raise_error("Dock Empty")
+  end
+
+  it 'gives error that dock is full when trying to dock' do
+    victoria_station = DockingStation.new
     bike1 = Bike.new
     victoria_station.dock(bike1)
-    expect{ victoria_station.release_bike }.to_not raise_error("Dock Empty")
+    bike2 = Bike.new
+    expect{ victoria_station.dock(bike2) }.to raise_error("Dock full!")
   end
 end
